@@ -15,43 +15,43 @@ public class PeopleCounter {
 	}
 		
 	//getter
-	public int getWaiting() {
+	synchronized public int getWaiting() {
 		return peopleOutSide;
 	}
 
 	//getter
-	public int getInside() {
+	synchronized public int getInside() {
 		return peopleInside;
 	}
 	
 	//getter
-	public int getTotal() {
+	synchronized public int getTotal() {
 		return (peopleOutSide+peopleInside+peopleLeft);
 	}
 
 	//getter
-	public int getLeft() {
+	synchronized public int getLeft() {
 		return peopleLeft;
 	}
 	
 	//getter
-	public int getMax() {
+	synchronized public int getMax() {
 		return maxPeople;
 	}
 	
 	//getter
-	public void personArrived() {
+	synchronized public void personArrived() {
 		peopleOutSide++;
 	}
 	
 	//update counters for a person entering the shop
-	public void personEntered() {
+	synchronized public void personEntered() {
 		peopleOutSide--;
 		peopleInside++;
 	}
 
 	//update counters for a person exiting the shop
-	public void personLeft() {
+	synchronized public void personLeft() {
 		peopleInside--;
 		peopleLeft++;
 		
