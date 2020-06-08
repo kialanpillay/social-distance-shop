@@ -38,12 +38,21 @@ public class GridBlock {
 	//for customer to move to a block
 	public boolean get() throws InterruptedException {
 		mutex.acquire();
-		isOccupied=true;
-		return true;
+		if(occupied()){
+			mutex.release();
+			return false;
+		}
+		else{
+			isOccupied=true;
+			mutex.release();
+			return true;
+		}
+		
 	}
 		
 	//for customer to leave a block
-	public  void release() {
+	public  void release() throws InterruptedException{
+		mutex.acquire();
 		isOccupied =false;
 		mutex.release();
 	}

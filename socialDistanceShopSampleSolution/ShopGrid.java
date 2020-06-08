@@ -125,7 +125,7 @@ public class ShopGrid {
 	} 
 	
 	//called by customer to exit the shop
-	public void leaveShop(GridBlock currentBlock)   {
+	public void leaveShop(GridBlock currentBlock) throws InterruptedException  {
 		currentBlock.release();
 		multiplex.release();
 	}
