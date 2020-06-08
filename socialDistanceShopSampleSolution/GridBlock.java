@@ -1,5 +1,7 @@
 package socialDistanceShopSampleSolution;
 
+import java.util.concurrent.Semaphore;
+
 // GridBlock class to represent a block in the shop.
 
 public class GridBlock {
@@ -8,6 +10,7 @@ public class GridBlock {
 	private final boolean isCheckoutCounter;
 	private int [] coords; // the coordinate of the block.
 	private int ID;
+	private Semaphore mutex;
 	
 	public static int classCounter=0;
 	
@@ -17,11 +20,13 @@ public class GridBlock {
 		isOccupied= false;
 		ID=classCounter;
 		classCounter++;
+		mutex = new Semaphore(1);
 	}
 	
 	GridBlock(int x, int y, boolean exitBlock, boolean refreshBlock) throws InterruptedException {
 		this(exitBlock,refreshBlock);
 		coords = new int [] {x,y};
+		mutex = new Semaphore(1);
 	}
 	
 	//getter
@@ -32,6 +37,7 @@ public class GridBlock {
 	
 	//for customer to move to a block
 	public boolean get() throws InterruptedException {
+		mutex.acquire();
 		isOccupied=true;
 		return true;
 	}
@@ -39,6 +45,7 @@ public class GridBlock {
 	//for customer to leave a block
 	public  void release() {
 		isOccupied =false;
+		mutex.release();
 	}
 	
 	//getter
