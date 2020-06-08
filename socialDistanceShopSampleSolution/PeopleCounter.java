@@ -11,7 +11,7 @@ public class PeopleCounter {
 		peopleOutSide = 0;
 		peopleInside = 0;
 		peopleLeft = 0;
-		maxPeople = 0;
+		maxPeople = max;
 	}
 		
 	//getter
