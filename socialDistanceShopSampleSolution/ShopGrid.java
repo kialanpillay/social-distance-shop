@@ -14,6 +14,7 @@ public class ShopGrid {
 	private final static int minX =5;//minimum x dimension
 	private final static int minY =5;//minimum y dimension
 	private Semaphore multiplex;
+	private Semaphore entry;
 	
 	
 	ShopGrid() throws InterruptedException {
@@ -24,6 +25,7 @@ public class ShopGrid {
 		int [] [] dfltExit= {{10,10}};
 		this.initGrid(dfltExit);
 		multiplex = new Semaphore(1);
+		entry = new Semaphore(1);
 	}
 	
 	ShopGrid(int x, int y, int [][] exitBlocks,int maxPeople) throws InterruptedException {
@@ -35,6 +37,7 @@ public class ShopGrid {
 		Blocks = new GridBlock[x][y];
 		this.initGrid(exitBlocks);
 		multiplex = new Semaphore(maxPeople);
+		entry = new Semaphore(1);
 	}
 	
 	private  void initGrid(int [][] exitBlocks) throws InterruptedException {
@@ -77,6 +80,7 @@ public class ShopGrid {
 	//called by customer when entering shop
 	public GridBlock enterShop() throws InterruptedException  {
 		multiplex.acquire();
+		entry.acquire();
 		GridBlock entrance = whereEntrance();
 		return entrance;
 	}
@@ -84,7 +88,7 @@ public class ShopGrid {
 	//called when customer wants to move to a location in the shop
 	public GridBlock move(GridBlock currentBlock,int step_x, int step_y) throws InterruptedException {  
 		//try to move in 
-		
+
 		int c_x= currentBlock.getX();
 		int c_y= currentBlock.getY();
 		
@@ -98,6 +102,10 @@ public class ShopGrid {
 			
 		}
 
+		if(whereEntrance().getX() == new_x && whereEntrance().getY() == new_y){
+			return currentBlock;
+		}
+
 		if ((new_x==currentBlock.getX())&&(new_y==currentBlock.getY())) //not actually moving
 			return currentBlock;
 		 
@@ -105,6 +113,9 @@ public class ShopGrid {
 		
 			if (newBlock.get())  {  //get successful because block not occupied 
 					currentBlock.release(); //must release current block
+					if(whereEntrance().getX() == c_x && whereEntrance().getY() == c_y){
+						entry.release();
+					}
 				}
 			else {
 				newBlock=currentBlock;
@@ -115,8 +126,8 @@ public class ShopGrid {
 	
 	//called by customer to exit the shop
 	public void leaveShop(GridBlock currentBlock)   {
-		multiplex.release();
 		currentBlock.release();
+		multiplex.release();
 	}
 
 }
