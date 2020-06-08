@@ -4,6 +4,8 @@
  
 package socialDistanceShopSampleSolution;
 
+import java.util.concurrent.Semaphore;
+
 public class ShopGrid {
 	private GridBlock [][] Blocks;
 	private final int x;
@@ -11,6 +13,7 @@ public class ShopGrid {
 	public final int checkout_y;
 	private final static int minX =5;//minimum x dimension
 	private final static int minY =5;//minimum y dimension
+	private Semaphore multiplex;
 	
 	
 	ShopGrid() throws InterruptedException {
@@ -20,6 +23,7 @@ public class ShopGrid {
 		Blocks = new GridBlock[x][y];
 		int [] [] dfltExit= {{10,10}};
 		this.initGrid(dfltExit);
+		multiplex = new Semaphore(1);
 	}
 	
 	ShopGrid(int x, int y, int [][] exitBlocks,int maxPeople) throws InterruptedException {
@@ -30,6 +34,7 @@ public class ShopGrid {
 		this.checkout_y=y-3;
 		Blocks = new GridBlock[x][y];
 		this.initGrid(exitBlocks);
+		multiplex = new Semaphore(maxPeople);
 	}
 	
 	private  void initGrid(int [][] exitBlocks) throws InterruptedException {
@@ -71,6 +76,7 @@ public class ShopGrid {
 	
 	//called by customer when entering shop
 	public GridBlock enterShop() throws InterruptedException  {
+		multiplex.acquire();
 		GridBlock entrance = whereEntrance();
 		return entrance;
 	}
@@ -109,6 +115,7 @@ public class ShopGrid {
 	
 	//called by customer to exit the shop
 	public void leaveShop(GridBlock currentBlock)   {
+		multiplex.release();
 		currentBlock.release();
 	}
 
