@@ -1,6 +1,7 @@
 package socialDistanceShopSampleSolution;
 
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.*;
 
 // GridBlock class to represent a block in the shop.
 
@@ -38,15 +39,13 @@ public class GridBlock {
 	//for customer to move to a block
 	public boolean get() throws InterruptedException {
 		mutex.acquire();
-		if(occupied()){
-			mutex.release();
-			return false;
-		}
-		else{
+		if(!isOccupied){
 			isOccupied=true;
 			mutex.release();
 			return true;
 		}
+		mutex.release();
+		return false;
 		
 	}
 		
