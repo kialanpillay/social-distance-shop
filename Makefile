@@ -27,4 +27,4 @@ clean:
 	rm -rf $(BINDIR)/*.class
 
 run: 
-	cd bin && java socialDistanceShopSampleSolution.SocialDistancingShop 50 10 10 30 > output.txt
+	cd bin && java socialDistanceShopSampleSolution.SocialDistancingShop 50 10 10 30
