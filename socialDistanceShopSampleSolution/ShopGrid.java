@@ -13,6 +13,7 @@ with the binary semaphore. Initally, this semaphore has one permit, to allow the
 The counting semaphore is required to limit the total number of customers in the shop (there is a maximal amount of Customer threads)
 that can have a GridBlock assigned to it). This ensures that the simulation complies with the pandemic regulations.
 The semaphore is initialised with the maxPeople parameter, which indicates the user-specified limit on people.
+This creates maxPeople number of available permits, allowing threads up to the limit to enter the store before being forced to wait.
 The permit for the binary semaphore is released when the Customer thread moves out of the entrance.
 Counting semaphore permits are released when Customer threads call the exit method, and have left the store.
 */
@@ -111,6 +112,8 @@ public class ShopGrid {
 	}
 		
 	//called when customer wants to move to a location in the shop
+	//Method is modified to ensure that the simulation functions correctly, within the designated constraints
+	//and is thread-safe. The implementation also ensures there is liveness, and free from deadlock.
 	public GridBlock move(GridBlock currentBlock,int step_x, int step_y) throws InterruptedException {  
 		//try to move in 
 

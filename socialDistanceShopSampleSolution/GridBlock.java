@@ -89,14 +89,14 @@ public class GridBlock {
 	}
 	
 	//getter
-	//Method not called by external classes, but still synchronised to ensure thread-safety.
+	//Method not called by external classes, but still synchronized to ensure thread-safety.
 	//Method signature modifed to contain the synchronized keyword; method is synchronized on the object's own lock.
 	synchronized public boolean occupied() {
 		return isOccupied;
 	}
 	//The following accessor methods did not require modification.
 	//The variables isExit and isCheckoutCounter are declared as private final, and cannot be modified by other threads
-	//even if they had the relevant Mutator methods declared
+	//even if they had the relevant Mutator methods defined
 	//Concurrent access it always thread-safe
 	//getter
 	public  boolean isExit() {
