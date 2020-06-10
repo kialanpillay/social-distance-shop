@@ -47,6 +47,9 @@ public class GridBlock {
 	}
 	
 	//getter
+	//The following accessor methods did not require modification.
+	//Each Customer thread has a thread-local GridBlock, and the shared ShopGrid object has a shared 2D array of GridBlock
+	//The coordinates of these blocks in ShopGrid can not be mutated, thus concurrenct access is permitted without synchronization. 
 	public  int getX() {return coords[0];}  
 	
 	//getter
@@ -86,11 +89,15 @@ public class GridBlock {
 	}
 	
 	//getter
-	//Method not called by external classes, so no need to synchronise.
-	public boolean occupied() {
+	//Method not called by external classes, but still synchronised to ensure thread-safety.
+	//Method signature modifed to contain the synchronized keyword; method is synchronized on the object's own lock.
+	synchronized public boolean occupied() {
 		return isOccupied;
 	}
 	//The following accessor methods did not require modification.
+	//The variables isExit and isCheckoutCounter are declared as private final, and cannot be modified by other threads
+	//even if they had the relevant Mutator methods declared
+	//Concurrent access it always thread-safe
 	//getter
 	public  boolean isExit() {
 		return isExit;	

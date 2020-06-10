@@ -28,8 +28,7 @@ public class PeopleCounter {
 		
 	//getter
 	//Method signature modifed to contain the synchronized keyword; method is synchronized on the object's own lock.
-	//Access to internal data members is exclusive as only one thread can be active in the Monitor object at a tim.
-	//Variables are safe from data races, and no data inconsistency can occu.
+	//Access to internal data members is exclusive as only one thread can be active in the Monitor object at a time.
 	//Variables are safe from data races, and no data inconsistency can occur if multiple threads call the accessor.
 	synchronized public int getWaiting() {
 		return peopleOutSide;
