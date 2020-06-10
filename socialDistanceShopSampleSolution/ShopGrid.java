@@ -40,7 +40,7 @@ public class ShopGrid {
 		entry = new Semaphore(1);
 		//Semaphore is constructed with the new keyword, and initialised with a value of 1
 		//This allows for one thread to acquire the mutex lock without blocking (occupy the shop entrance).
-		//This is neccessary to ensure that customers can enter the store, and are not left waiting indefinitely.
+		//This is neccessary to ensure that a customer can enter the store when the simulation begins, and a;; are not left waiting indefinitely.
 	}
 	
 	ShopGrid(int x, int y, int [][] exitBlocks,int maxPeople) throws InterruptedException {
@@ -57,7 +57,7 @@ public class ShopGrid {
 		entry = new Semaphore(1);
 		//Semaphore is constructed with the new keyword, and initialised with a value of 1
 		//This allows for one thread to acquire the mutex lock without blocking (occupy the shop entrance).
-		//This is neccessary to ensure that customers can enter the store, and are not left waiting indefinitely.
+		//This is neccessary to ensure that a customer can enter the store when the simulation begins, and all are not left waiting indefinitely.
 	}
 	
 	private  void initGrid(int [][] exitBlocks) throws InterruptedException {
