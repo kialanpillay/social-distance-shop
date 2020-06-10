@@ -15,7 +15,7 @@ that can have a GridBlock assigned to it). This ensures that the simulation comp
 The semaphore is initialised with the maxPeople parameter, which indicates the user-specified limit on people.
 This creates maxPeople number of available permits, allowing threads up to the limit to enter the store before being forced to wait.
 The permit for the binary semaphore is released when the Customer thread moves out of the entrance.
-Counting semaphore permits are released when Customer threads call the exit method, and have left the store.
+Counting semaphore permits are released when Customer threads call the leaveShop method, and have left the store.
 */
 public class ShopGrid {
 	private GridBlock [][] Blocks;
