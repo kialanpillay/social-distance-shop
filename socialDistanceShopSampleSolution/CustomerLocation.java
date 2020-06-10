@@ -9,7 +9,10 @@ public class CustomerLocation  { // this is a separate class so don't have to ac
 /*
 This class is not modified because it already has the requiste mechanisms implemented to ensure thread-safety.
 This class is accessed by Customer threads, after moving between different blocks in shared ShopGrid
-(have different GridBlock assigned to it after moving between)
+(have different GridBlock assigned to it after moving between).
+An array of class objects is also shared between the Inspector class, and used to identify rule violations, by comparing the locations of each customer
+the ShopView class, which uses the locations to render customers correctly in the simulation
+as well as the SocialDistancingShop parent thread.
 This class ensures thread-safety as well as liveness by using Atomic Variables, which guarantee the atomicity of operations.
 This means that their operations are indivisible and cannot be interrupted by another process or thread.
 Atomic variables are implemented with the help of hardware atomic instructions
