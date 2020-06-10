@@ -36,8 +36,8 @@ Atomic variables are implemented with the help of hardware atomic instructions
 	/*
 	The following Accessor and Mutator methods were not modified because they in turn call atomic operations of the internal variables
 	that update the respective Atomic variable.
-	Use of atomic variables prevents data races from occurring, and removes the threat of deadlock that arises from using Java Locks,
-	or Semaphores, that never have their permits released.
+	Use of atomic variables prevents data races from occurring, and removes the threat of deadlock that arises from using Java Locks
+	or Semaphores that never have their permits released.
 	*/
 	//setter
 	public  void  setX(int x) { this.x.set(x);}	//Calls an atomic operation that atomically sets the variable with the value of the argument
