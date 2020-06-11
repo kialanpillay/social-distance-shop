@@ -8,7 +8,7 @@ All data members are private, and all class methods are synchronised on the obje
 This ensures that access to the class is thread-safe and not subject to data races.
 The Java Monitor pattern is an provides a convenient and effective mechanism for process synchronization
 although it reduces the liveness of the program, since threads serially access any method of the class.
-The methods in this class are called by a single CounterDisplay thread, and the Inspector thread; 
+The methods in this class are called by Customer threads, single CounterDisplay thread, and the Inspector thread; 
 each class has access to a shared PeopleCounter object, which is declared in SocialDistancingShop.java
 */
 
@@ -37,7 +37,6 @@ public class PeopleCounter {
 	//getter
 	//Method signature modified to contain the synchronized keyword; method is synchronized on the object's own lock.
 	//Access to internal data members is exclusive as only one thread can be active in the Monitor object at a time.
-	//Variables are safe from data races, and no data inconsistency can occur.
 	//Variables are safe from data races, and no data inconsistency can occur if multiple threads call the accessor.
 	synchronized public int getInside() {
 		return peopleInside;
