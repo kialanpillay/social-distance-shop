@@ -48,8 +48,7 @@ public class GridBlock {
 	
 	//getter
 	//The following accessor methods did not require modification.
-	//Each Customer thread has a thread-local GridBlock, and the shared ShopGrid object has a shared 2D array of GridBlock
-	//The coordinates of these blocks in ShopGrid can not be mutated, thus concurrenct access is permitted without synchronization. 
+	//The coordinates of these blocks in ShopGrid can not be mutated, thus concurrent access is permitted without synchronization, ensuring liveness. 
 	public  int getX() {return coords[0];}  
 	
 	//getter
@@ -109,5 +108,7 @@ public class GridBlock {
 	}
 	
 	//getter
-	public int getID() {return this.ID;}
+	//Method signature modifed to contain the synchronized keyword; method is synchronized on the object's own lock.
+	//ID is not declared as final, and can potentially be mutated if the relevant Mutator is defined; needs protection.
+	synchronized public int getID() {return this.ID;}
 }
