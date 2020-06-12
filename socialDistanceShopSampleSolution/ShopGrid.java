@@ -76,7 +76,10 @@ public class ShopGrid {
 			}
 		}
 	}
-	
+	//The following accessor methods did not require modification.
+	//The variables x and y are declared as private final, and cannot be modified by other threads
+	//even if they had the relevant Mutator methods defined
+	//Concurrent access it always thread-safe
 	//get max X for grid
 	public  int getMaxX() {
 		return x;
@@ -86,7 +89,7 @@ public class ShopGrid {
 	public int getMaxY() {
 		return y;
 	}
-
+	//Method is not modified; access is restricted using the binary semaphore permit acquired in the enterShop() method
 	public GridBlock whereEntrance() { //hard coded entrance
 		return Blocks[getMaxX()/2][0];
 	}
