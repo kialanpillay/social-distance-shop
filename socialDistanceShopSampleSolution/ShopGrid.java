@@ -35,13 +35,15 @@ public class ShopGrid {
 		Blocks = new GridBlock[x][y];
 		int [] [] dfltExit= {{10,10}};
 		this.initGrid(dfltExit);
-		multiplex = new Semaphore(1);
+		multiplex = new Semaphore(1, true);
 		//Semaphore is constructed with the new keyword, and initialised with a value of 1, since no argument is provided
+		//and the fairness parameter set to true (will guarantee first-in first-out granting of permits under contention)
 		//This allows for one thread to acquire the lock without blocking (enter the store)
-		entry = new Semaphore(1);
+		entry = new Semaphore(1, true);
 		//Semaphore is constructed with the new keyword, and initialised with a value of 1
+		//and the fairness parameter set to true (will guarantee first-in first-out granting of permits under contention)
 		//This allows for one thread to acquire the mutex lock without blocking (occupy the shop entrance).
-		//This is neccessary to ensure that a customer can enter the store when the simulation begins, and a;; are not left waiting indefinitely.
+		//This is neccessary to ensure that a customer can enter the store when the simulation begins, and customers are not left waiting indefinitely.
 	}
 	
 	ShopGrid(int x, int y, int [][] exitBlocks,int maxPeople) throws InterruptedException {
@@ -52,11 +54,13 @@ public class ShopGrid {
 		this.checkout_y=y-3;
 		Blocks = new GridBlock[x][y];
 		this.initGrid(exitBlocks);
-		multiplex = new Semaphore(maxPeople);
+		multiplex = new Semaphore(maxPeople, true);
 		//Semaphore is constructed with the new keyword, and initialised with a value of maxPeople
+		//and the fairness parameter set to true (will guarantee first-in first-out granting of permits under contention)
 		//This allows for maxPeople number of threads to acquire the lock without blocking (concurrently browse the store)
-		entry = new Semaphore(1);
+		entry = new Semaphore(1, true);
 		//Semaphore is constructed with the new keyword, and initialised with a value of 1
+		//and the fairness parameter set to true (will guarantee first-in first-out granting of permits under contention)
 		//This allows for one thread to acquire the mutex lock without blocking (occupy the shop entrance).
 		//This is neccessary to ensure that a customer can enter the store when the simulation begins, and all are not left waiting indefinitely.
 	}
