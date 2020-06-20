@@ -35,15 +35,12 @@ public class GridBlock {
 		mutex = new Semaphore(1); //Semaphore is constructed with the new keyword, and initialised with a value of 1
 		//This allows for one thread to acquire the mutex lock without blocking.
 		//This is neccessary to ensure that an empty GridBlock can be occupied by a Customer thread.
+		//One permit is assigned to the Semaphore
 	}
 	
 	GridBlock(int x, int y, boolean exitBlock, boolean refreshBlock) throws InterruptedException {
 		this(exitBlock,refreshBlock);
 		coords = new int [] {x,y};
-		mutex = new Semaphore(1); //Semaphore is constructed with the new keyword, and initialised with a value of 1
-		//This allows for one thread to acquire the mutex lock without blocking. 
-		//This is neccessary to ensure that an empty GridBlock can be occupied by a Customer thread.
-		//One permit is assigned to the Semaphore
 	}
 	
 	//getter
